@@ -1,17 +1,16 @@
 from pyspark.sql import SparkSession
-from config import MYSQL_CONFIG
+from pyspark.sql.functions import col
 
 spark = SparkSession.builder \
-    .appName("ReadAthleteBio") \
-    .config("spark.jars", "mysql-connector-j-8.0.32.jar") \
+    .appName("ReadAthleteBioCSV") \
     .getOrCreate()
 
-df = spark.read.format("jdbc").options(
-    url=MYSQL_CONFIG["url"],
-    driver=MYSQL_CONFIG["driver"],
-    dbtable="athlete_bio",
-    user=MYSQL_CONFIG["user"],
-    password=MYSQL_CONFIG["password"]
-).load()
+bio_df = spark.read.csv("data/athlete_bio.csv", header=True, inferSchema=True)
 
-df.show(5)
+clean_bio_df = bio_df.filter(
+    col("height").cast("float").isNotNull() &
+    col("weight").cast("float").isNotNull()
+)
+
+clean_bio_df.show(10)
+
