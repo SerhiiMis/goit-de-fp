@@ -12,4 +12,5 @@ with open("data/athlete_event_results.csv", newline='', encoding='utf-8') as csv
     reader = csv.DictReader(csvfile)
     for row in reader:
         producer.send("athlete_events", row)
-        sleep(0.1)  # throttle
+        print(f"Sent message: {row}")
+        sleep(0.1) 
