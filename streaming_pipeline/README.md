@@ -32,24 +32,6 @@ This is the first part of the final Data Engineering project. It demonstrates ho
 
 ---
 
-## 📂 Project Structure
-
-```
-streaming_pipeline/
-├── docker-compose.yml
-├── producer.py
-├── data/
-│   └── athlete_event_results.csv
-├── screenshots/
-│   ├── 01_docker_ps.png
-│   ├── 02_kafka_topics_list.png
-│   ├── 03_producer_running.png
-│   └── 04_kcat_messages.png
-└── README.md
-```
-
----
-
 ## 🚀 How to Run It
 
 ### 🐳 Step 1: Start Kafka & Zookeeper

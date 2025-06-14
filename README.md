@@ -1,16 +1,28 @@
 # 🏋️‍♂️ Athlete Performance Pipeline (Batch + Streaming)
 
-This project is the final work for the Data Engineering course and covers:
+This project is the final assignment for the **Data Engineering course**, combining:
 
-- Batch data processing
-- Streaming data processing
-- A multi-layered architecture (Landing → Bronze → Silver → Gold)
-- Workflow orchestration via Airflow DAG
+- Batch data processing (Apache Spark)
+- Streaming data ingestion (Apache Kafka)
+- Multi-layer architecture (Landing → Bronze → Silver → Gold)
+- Automation with Apache Airflow
+
+---
+
+## 🧭 Project Overview
+
+The project is divided into two main parts:
+
+- **Streaming Pipeline** – handles real-time data ingestion using Kafka (producer logic and topic management)
+- **Batch Pipeline** – performs ETL using PySpark, orchestrated with Airflow
+
+This repository includes both parts, but the `batch_pipeline/` folder focuses specifically on batch processing and automation logic.
 
 ---
 
 ## 📁 Project Structure
 
+```
 goit-de-fp/
 ├── streaming_pipeline/
 │ ├── batch_pipeline/
@@ -28,6 +40,8 @@ goit-de-fp/
 │ │ ├── gold/
 │ ├── spark_job.py
 ├── README.md
+
+```
 
 ---
 
