@@ -13,8 +13,11 @@ bio_df = spark.read.parquet(f"{base_path}/batch_pipeline/output/silver/athlete_b
 events_df = spark.read.parquet(f"{base_path}/batch_pipeline/output/silver/athlete_event_results")
 
 df = events_df.join(
-    bio_df.select("athlete_id", "sex", "bio_country_noc"), on="athlete_id", how="inner"
+    bio_df.select("athlete_id", "sex", "height", "weight", "bio_country_noc"),
+    on="athlete_id",
+    how="inner"
 )
+
 
 agg_df = df.groupBy("sport", "medal", "sex", "bio_country_noc") \
     .agg(
