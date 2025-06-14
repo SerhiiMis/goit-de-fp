@@ -5,14 +5,16 @@ spark = SparkSession.builder \
     .appName("SilverToGold") \
     .getOrCreate()
 
-bio_df = spark.read.parquet("batch_pipeline/output/silver/athlete_bio") \
+base_path = "/mnt/d/Projects/repositories/goit-de-fp/streaming_pipeline"
+
+bio_df = spark.read.parquet(f"{base_path}/batch_pipeline/output/silver/athlete_bio") \
     .withColumnRenamed("country_noc", "bio_country_noc")
 
-bio_df_selected = bio_df.select("athlete_id", "sex", "bio_country_noc", "height", "weight")
+events_df = spark.read.parquet(f"{base_path}/batch_pipeline/output/silver/athlete_event_results")
 
-events_df = spark.read.parquet("batch_pipeline/output/silver/athlete_event_results")
-
-df = events_df.join(bio_df_selected, on="athlete_id", how="inner")
+df = events_df.join(
+    bio_df.select("athlete_id", "sex", "country_noc"), on="athlete_id", how="inner"
+)
 
 agg_df = df.groupBy("sport", "medal", "sex", "bio_country_noc") \
     .agg(
@@ -22,9 +24,7 @@ agg_df = df.groupBy("sport", "medal", "sex", "bio_country_noc") \
 
 agg_df = agg_df.withColumn("timestamp", current_timestamp())
 
-agg_df.show()
-
-agg_df.write.mode("overwrite").parquet("batch_pipeline/output/gold/avg_stats")
+agg_df.write.mode("overwrite").parquet(f"{base_path}/batch_pipeline/output/gold/avg_stats")
 
 print("✅ Gold dataset successfully created.")
 
