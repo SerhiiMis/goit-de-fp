@@ -14,8 +14,8 @@ spark = SparkSession.builder \
     .getOrCreate()
 
 tables = ["athlete_bio", "athlete_event_results"]
-input_dir = "batch_pipeline/output/bronze"
-output_dir = "batch_pipeline/output/silver"
+input_dir = "/mnt/d/Projects/repositories/goit-de-fp/streaming_pipeline/batch_pipeline/output/bronze"
+output_dir = "/mnt/d/Projects/repositories/goit-de-fp/streaming_pipeline/batch_pipeline/output/silver"
 os.makedirs(output_dir, exist_ok=True)
 
 for table in tables:

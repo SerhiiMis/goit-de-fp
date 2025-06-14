@@ -8,3 +8,5 @@ checkpoints/
 *.jar
 
 .venv
+
+batch_pipeline/output/
